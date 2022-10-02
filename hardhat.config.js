@@ -1,4 +1,5 @@
 require("@nomicfoundation/hardhat-toolbox");
+require("dotenv").config();
 
 // https://hardhat.org/hardhat-runner/docs/advanced/create-task
 // task("balance", "Prints an account's balance")
@@ -23,4 +24,10 @@ task("accounts", "Print the list of accounts").setAction(
 /** @type import('hardhat/config').HardhatUserConfig */
 module.exports = {
   solidity: "0.8.17",
+  networks: {
+    goerli: {
+      url: process.env.STAGING_QUICKNODE_KEY,
+      accounts: [process.env.PRIVATE_KEY],
+    },
+  },
 };
