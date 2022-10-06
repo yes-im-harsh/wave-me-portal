@@ -21,8 +21,8 @@ contract WaveMePortal {
     // This is what lets me hold all the waves anyone ever sends to me!
     Wave[] waves;
 
-    constructor() {
-        console.log("YoYo! I am contract and I am smart");
+    constructor() payable {
+        console.log("YoYo! I am contract and I am smart, Now I can also pay");
     }
 
     function wave(string memory _message) public {
