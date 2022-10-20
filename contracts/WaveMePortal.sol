@@ -24,6 +24,9 @@ contract WaveMePortal {
     // This is what lets me hold all the waves anyone ever sends to me!
     Wave[] waves;
 
+    //mapping keyword associates the address to a number, so that we can use it easily
+    mapping(address => uint256) public lastWavedAt;
+
     constructor() payable {
         console.log("YoYo! I am contract and I am smart, Now I can also pay");
 
@@ -32,6 +35,13 @@ contract WaveMePortal {
     }
 
     function wave(string memory _message) public {
+        console.log("lastWaveAt", lastWavedAt[msg.sender]);
+
+        require(
+            lastWavedAt[msg.sender] + 20 minutes < block.timestamp,
+            "Wait for 15 minutes"
+        );
+
         totalWaves += 1;
         console.log("%s has waved!", msg.sender);
 
