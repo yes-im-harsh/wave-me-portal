@@ -45,6 +45,62 @@
 //   console.log(allWaves)
 // }
 
+// const main = async () => {
+//   const waveContractFactory = await hre.ethers.getContractFactory(
+//     "WaveMePortal"
+//   );
+//   const waveContract = await waveContractFactory.deploy({
+//     value: hre.ethers.utils.parseEther("0.1"),
+//   });
+
+//   await waveContract.deployed();
+//   console.log("Contract address:", waveContract.address);
+
+//   /*
+//    * Get Contract balance
+//    */
+//   let contractBalance = await hre.ethers.provider.getBalance(
+//     waveContract.address
+//   );
+//   console.log(
+//     "Contract balance:",
+//     hre.ethers.utils.formatEther(contractBalance)
+//   );
+
+//   /*
+//    * Send Wave
+//    */
+//   let waveTxn = await waveContract.wave("A message!");
+//   await waveTxn.wait();
+
+//   /*
+//    * Get Contract balance to see what happened!
+//    */
+//   contractBalance = await hre.ethers.provider.getBalance(waveContract.address);
+//   console.log(
+//     "Contract balance:",
+//     hre.ethers.utils.formatEther(contractBalance)
+//   );
+
+//   let allWaves = await waveContract.getAllWaves();
+//   console.log(allWaves);
+// };
+
+// const runMain = async () => {
+//   try {
+//     await main();
+//     process.exit(0);
+//   } catch (error) {
+//     console.log(error);
+//     process.exit(1);
+//   }
+// };
+// runMain();
+
+//Randomly picking the winner.
+
+const { ethers } = require("hardhat");
+
 const main = async () => {
   const waveContractFactory = await hre.ethers.getContractFactory(
     "WaveMePortal"
@@ -56,29 +112,29 @@ const main = async () => {
   await waveContract.deployed();
   console.log("Contract address:", waveContract.address);
 
-  /*
-   * Get Contract balance
-   */
   let contractBalance = await hre.ethers.provider.getBalance(
     waveContract.address
   );
+
   console.log(
-    "Contract balance:",
+    "Contract Balance:",
     hre.ethers.utils.formatEther(contractBalance)
   );
 
   /*
-   * Send Wave
+   * Let's try two waves now
    */
-  let waveTxn = await waveContract.wave("A message!");
+
+  const waveTxn = await waveContract.wave("This is wave #1");
   await waveTxn.wait();
 
-  /*
-   * Get Contract balance to see what happened!
-   */
+  const waveTxn2 = await waveContract.wave("This is wave #2");
+  await waveTxn2.wait();
+
   contractBalance = await hre.ethers.provider.getBalance(waveContract.address);
+
   console.log(
-    "Contract balance:",
+    "Contract Balance:",
     hre.ethers.utils.formatEther(contractBalance)
   );
 
@@ -91,8 +147,8 @@ const runMain = async () => {
     await main();
     process.exit(0);
   } catch (error) {
-    console.log(error);
     process.exit(1);
   }
 };
+
 runMain();
