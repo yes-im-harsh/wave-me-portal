@@ -35,12 +35,15 @@ contract WaveMePortal {
     }
 
     function wave(string memory _message) public {
-        console.log("lastWaveAt", lastWavedAt[msg.sender]);
-
         require(
-            lastWavedAt[msg.sender] + 20 minutes < block.timestamp,
-            "Wait for 15 minutes"
+            lastWavedAt[msg.sender] + 15 minutes < block.timestamp,
+            "Wait for 15m"
         );
+
+        /*
+         * Update the current timestamp we have for the user
+         */
+        lastWavedAt[msg.sender] = block.timestamp;
 
         totalWaves += 1;
         console.log("%s has waved!", msg.sender);
